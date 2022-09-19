@@ -9,7 +9,7 @@ section(data-aos="fade" data-aos-duration="2000").classes#classes
             .classes-row(id=row)
                 each li, index in classes
                     - let current = (index + 1) % 4 + 1
-                    a(href="https://app.socialdancetv.com/signup/1").classes-item
+                    a(href="https://app.socialdancetv.com/signup/1?gr=1").classes-item
                         img(src=`./img/main/classes/item${current}.jpg`).__image
                         .__wrapper
                             span(class=colors[current])._tag Routines
