@@ -53,3 +53,19 @@ Completed on 2026-09-07. The deployed implementation is commit `8d6ee26937dd31a9
 - Production deployment command included exact SHA, branch and descriptive GitHub commit message metadata; the CLI's compact inspect output does not expose metadata, so no claim is made about a separately verified dashboard display label.
 
 Implementation and this acceptance/evidence update are saved to the dedicated GitHub branch. No PR or merge into `master`/`master-update` was created. The disposable clone and generated site may be removed after the final branch SHA is verified on GitHub; everything needed to reproduce it is committed.
+
+## Logo-only live acceptance (supersedes the deployment above)
+
+Owner approved only replacing the two visible SDTV marks with the actual app wordmark, keeping all other design/content frozen pending discussion. Archive recommendations are recorded in `docs/landing-elements-review-2026-09-07.md`, not implemented.
+
+- Implementation SHA: `07637955b9044f14563df40704d4ced049a56d32`, pushed to the same dedicated branch.
+- Production deployment: `dpl_9X9QUjnF47SFN7dwbuDT2C3A1Fjp`, READY; immutable URL `https://danzuni-cfn16ovhi-kirill-dancer-7625s-projects.vercel.app`; public alias `https://go.danzuni.com/`.
+- Vercel API GET `/v13/deployments/dpl_9X9QUjnF47SFN7dwbuDT2C3A1Fjp` verified exact SHA/ref and descriptive `githubCommitMessage`: `fix(brand): use application Danzuni wordmark on landing`. This verifies metadata, not an unobserved dashboard row's presentation.
+- PASS on implementation tree: `node scripts/build.mjs`, `node --test scripts/test.mjs` (18/18), `git diff --check`.
+- PASS: `node scripts/smoke.mjs` at `2026-09-07T17:37:50.884Z`: HTTPS 200, 150 static resources 200, source/Git/CNAME/unknown routes 404, isolation headers, original source site remains byte-identical.
+- Deployed HTML SHA-256: `769a0fb096ac4d1142b9e6ffd4b55e554f072f3ba023ce89afb6bd96eafaa932`, equal to the reviewed local build.
+- PASS browser: live desktop/mobile wordmarks, exact mobile 600 20px/20px Poppins and -0.8px spacing; no underline, no broken images or horizontal overflow, empty warning/error log. Live captures: `docs/evidence/logo-review/12-live-mobile.png`, `13-live-desktop.png`.
+- The old HTML, ZIP and extracted concept hashes remain unchanged. No app/API deployment, DNS changes, provider or commercial activation, PR or main merge.
+- Immediate code rollback: redeploy the prior verified implementation `8d6ee26937dd31a980b3373486874c0964da2250` to this isolated project; never deploy archived root HTML.
+
+Review artifacts and screenshots are retained in GitHub; local checking servers are stopped at handoff. The previously retained clone/build directory is not silently removed or cleaned through an alternate mechanism after the earlier cleanup restriction. It is reproducible, pushed work, not the sole remaining copy.

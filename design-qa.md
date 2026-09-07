@@ -61,5 +61,6 @@ Scope: actual application wordmark in header/footer; no new layout/content from 
 - Copy/content: outside two wordmark wrappers, HTML normalized hash matches the previous deployment. No FAQ, lesson metadata, preview, offer or translation claim added.
 - Interaction PASS: mobile menu opens and closes after Features navigation. Header remains a home link with accessible name Danzuni. Console warning/error log empty. Footer captures `08-footer-desktop.png` / `11-footer-mobile.png` confirm legibility and spacing.
 - Automated PASS: build and 18/18 tests. Provider activation, payments, account submission and full accessibility audit NOT RUN (out of scope). Current review does not re-certify untouched legacy testimonial/copy claims.
+- Live acceptance PASS on `07637955b9044f14563df40704d4ced049a56d32`: `12-live-mobile.png`, `13-live-desktop.png`; exact deployed HTML hash and all 150 assets checked, warning/error log empty. Full details and rollback in `docs/handoff.md`.
 
 final result: passed
