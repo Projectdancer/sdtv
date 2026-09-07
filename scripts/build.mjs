@@ -16,6 +16,11 @@ export function adaptHtml(source) {
     html = html.replace(pattern, replacement);
   };
   once(/<title>Social Dance TV<\/title>/, '<title>Danzuni | Social Dance TV</title><meta name="description" content="Dance classes at your own pace, on your own time, and on any device. Explore Danzuni by Social Dance TV."><link rel="canonical" href="https://go.danzuni.com/">');
+  // Owner-approved logo-only exception to the design freeze. This is the actual
+  // typographic wordmark rendered by app.danzuni.com, not the archive's artwork.
+  const wordmark = '<span class="danzuni-wordmark" role="img" aria-label="Danzuni">Danzuni</span>';
+  once(/<svg[^>]*aria-labelledby="logo-title"[^>]*>[\s\S]*?<\/svg>/, `<span class="danzuni-header-logo">${wordmark}</span>`);
+  once(/<svg[^>]*aria-labelledby="logo-sq-title"[^>]*>[\s\S]*?<\/svg>/, `<span class="page-footer__logo danzuni-footer-logo">${wordmark}</span>`);
   once(/<link rel="preconnect" href="https:\/\/fonts.gstatic.com">/, '');
   once(/<link rel="stylesheet" href="https:\/\/fonts.googleapis.com[^>]+>/, '<link rel="stylesheet" href="css/fonts.css">');
   once(/<link href="https:\/\/unpkg.com\/aos@2.3.1\/dist\/aos.css" rel="stylesheet">/, '<link href="css/aos.css" rel="stylesheet"><link href="css/danzuni.css" rel="stylesheet">');

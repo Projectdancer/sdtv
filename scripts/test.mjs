@@ -12,6 +12,16 @@ const source = await readFile(join(root, 'index.html'), 'utf8');
 const html = await readFile(join(output, 'index.html'), 'utf8');
 const js = await readFile(join(output, 'js/main.js'), 'utf8');
 test('published HTML is exactly the reviewed adapter output',()=>assert.equal(html,adaptHtml(source)));
+test('logo-only revision preserves all other published HTML',()=>{
+ const marks=/<span class="(?:danzuni-header-logo|page-footer__logo danzuni-footer-logo)">[\s\S]*?<\/span><\/span>/g;
+ assert.equal([...html.matchAll(marks)].length,2);
+ const normalized=html.replace(marks,'__BRAND_MARK__');
+ assert.equal(createHash('sha256').update(normalized).digest('hex'),'232ec058389df3230ae5b3c23d30fc68fa8f188b25e388dd2985d6bbe4f208f4');
+});
+test('header and footer use the accessible application wordmark',()=>{
+ assert.equal([...html.matchAll(/class="danzuni-wordmark" role="img" aria-label="Danzuni">Danzuni<\/span>/g)].length,2);
+ assert.doesNotMatch(html,/icons\.svg#logo-(?:horizontal|square)/);
+});
 test('changed upstream is refused',()=>assert.throws(()=>adaptHtml(source+' '),/Legacy HTML changed/));
 test('no card, email or subscription forms',()=>assert.doesNotMatch(html,/<form\b|<input\b|payment-form|cc-number|cc-csc/));
 test('no historical prices, discounts or trial offers',()=>assert.doesNotMatch(html,/\$\s?\d|\d+\s?€|750|90\s?\+|Try it out for 7 days/i));

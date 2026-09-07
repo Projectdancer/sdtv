@@ -26,7 +26,7 @@ Use the old `go.socialdancetv.com` landing as the base and first publish its saf
 
 ## What remains intentionally separate
 
-Original SDTV logo/imagery and historical community testimonials remain because the owner requested the old landing first. Update to Danzuni branding and curated current classes in a subsequent owner-reviewed pass. Do not treat sample class cards or old testimonials as proof of current catalog size or new-user outcomes.
+Original imagery and historical community testimonials remain because the owner requested the old landing first. The subsequent logo-only exception replaces the two visible SDTV logos with the actual app wordmark; other branding/copy and curated current classes remain subject to owner review. Do not treat sample class cards or old testimonials as proof of current catalog size or new-user outcomes.
 
 Membership sales, Groupon exact offer/ordinary full-price renewal terms, discount-on-cancel eligibility, translation coverage, monitored support inbox, transactional email, dispute evidence and cancellation backend are separate gates. This landing neither implements nor activates them.
 

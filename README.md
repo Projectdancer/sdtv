@@ -14,7 +14,7 @@ Owner request, 2026-09-07: use the existing `go.socialdancetv.com` landing as th
 ## What changes in the copy
 
 - Original photos, videos, typography, palette, layout, tabs, mobile menu and carousels retained. Assets including Poppins/AOS dependencies are local, with font/CSS licenses.
-- Page title/canonical identify Danzuni; original SDTV logos are deliberately retained for this first transfer. Full Danzuni rebranding is a next step, not silently substituted artwork.
+- Page title/canonical identify Danzuni. In the separately owner-approved logo-only update, header/footer now reuse the application's actual typographic Danzuni wordmark. Other branding/copy and the archived dark concept are unchanged; see `docs/landing-elements-review-2026-09-07.md`.
 - Primary links go to `app.danzuni.com/classes` or `/login`, without the old `gr=1` Groupon flag.
 - Old prices, trial comments, mock card forms and disconnected newsletter form are removed. Former pricing cards become catalog/account links and explicitly state that new subscription purchases are unavailable on this page.
 - Expired catalog counters and release-cadence copy, unverified press/partner endorsement blocks and dead links are retired from the new rendering, not erased from the archive.
@@ -39,6 +39,6 @@ Link only the **generated site directory** to Vercel, never repository root. Dep
 
 ## Validation and follow-up
 
-See `design-qa.md` for visual evidence and `docs/handoff.md` for deployment state, rollback and remaining owner decisions. Automated static validation covers 16 tests, including asset byte parity, internal links, local fonts, no card/email forms, no old prices/Groupon links, adapter provenance, and CSP isolation.
+See `design-qa.md` for visual evidence and `docs/handoff.md` for deployment state, rollback and remaining owner decisions. Automated static validation covers 18 tests, including a hash proving that the logo-only update changes no other HTML, accessible wordmarks, asset byte parity, internal links, local fonts, no card/email forms, no old prices/Groupon links, adapter provenance, and CSP isolation.
 
 Next stage: owner-approved Danzuni branding/copy and real catalog selection, then separately approved membership/offer terms. Do not infer commercial approval from this landing deployment.

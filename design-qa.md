@@ -46,4 +46,20 @@ Evidence is committed under `docs/evidence/` (captured initially under `D:/codex
 
 `https://go.danzuni.com/` is live on deployed implementation `8d6ee26937dd31a980b3373486874c0964da2250`. Desktop/mobile captures are `docs/evidence/production-desktop.png` and `production-mobile.png`. Verified 150 static resources, HTML hash equality, isolation headers, working mobile navigation and intact old source site. The app CTA reaches the existing unauthenticated Log In guard, not a public catalog. See `docs/handoff.md` for exact deployment ID and smoke evidence.
 
+## Logo-only owner exception, 2026-09-07
+
+Scope: actual application wordmark in header/footer; no new layout/content from the dark archive. Evidence under `docs/evidence/logo-review/`.
+
+- Source app capture: `04-app-wordmark.png`; live DOM and `/assets/Page-Bs1yIA7E.css` confirm Poppins 600 22px/22px, -0.04em (20px below 1024px). Source is typographic text, not substituted image artwork.
+- Full-view comparisons: `comparison-desktop.png` and `comparison-mobile.png`. Before captures `05-before-desktop.png` / `09-before-mobile.png`; fixed implementation `07-after-desktop-fixed.png` / `10-after-mobile.png`. CSS viewports 1440x900 and 390x844; same surface returned 1425x891 and 375x811 rasters respectively. Equal-size rasters assembled without scaling; no unsupported device-scale assumption.
+- Focused app/landing comparison: `comparison-wordmark.png`, equal unscaled top-left crops. Different app/landing header padding is expected; glyph metrics match.
+- [P2, fixed] Initial text wordmark inherited link underline (`06-after-desktop.png`), unlike the app. Fixed only `.page-header__logo { text-decoration: none; }`; recaptured and compared. No remaining actionable P0/P1/P2 regression in tested states.
+- Fonts/typography: computed desktop `600 22px / 22px Poppins`, -0.88px; mobile `600 20px / 20px Poppins`. Main typography unchanged.
+- Spacing/layout: original 152x25 header and responsive footer slots preserved. Hero line breaks, photo crop, CTA, mobile menu position and surrounding sections match in combined comparisons. No global horizontal overflow at either viewport.
+- Colors: app header #242428; intentional white footer variant on existing dark background. No other palette changes.
+- Images/assets: original image/video bytes and original design stylesheet remain unchanged. No archive image, symbol or palette transferred.
+- Copy/content: outside two wordmark wrappers, HTML normalized hash matches the previous deployment. No FAQ, lesson metadata, preview, offer or translation claim added.
+- Interaction PASS: mobile menu opens and closes after Features navigation. Header remains a home link with accessible name Danzuni. Console warning/error log empty. Footer captures `08-footer-desktop.png` / `11-footer-mobile.png` confirm legibility and spacing.
+- Automated PASS: build and 18/18 tests. Provider activation, payments, account submission and full accessibility audit NOT RUN (out of scope). Current review does not re-certify untouched legacy testimonial/copy claims.
+
 final result: passed

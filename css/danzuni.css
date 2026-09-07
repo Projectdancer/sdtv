@@ -12,3 +12,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid #e06052; outline-offs
   .instructors__cta-block { top: 260px; }
 }
 @media (prefers-reduced-motion: reduce) { [data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; } }
+
+/* App wordmark: Page-Bs1yIA7E.css, verified against the live app on 2026-09-07.
+   Preserve the original landing's logo slots; no surrounding layout changes. */
+.danzuni-wordmark { display: block; font-family: Poppins, sans-serif; font-size: 22px; font-weight: 600; line-height: 1; letter-spacing: -.04em; text-transform: none; white-space: nowrap; }
+.danzuni-header-logo { display: flex; align-items: center; width: 152px; height: 25px; color: #242428; }
+.page-header__logo { text-decoration: none; }
+.danzuni-footer-logo { display: flex; align-items: center; width: 55px; height: 55px; color: #fff; }
+@media (min-width: 650px) { .danzuni-footer-logo { width: 110px; height: 110px; } }
+@media (max-width: 1023px) { .danzuni-wordmark { font-size: 20px; } }
