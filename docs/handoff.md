@@ -69,3 +69,5 @@ Owner approved only replacing the two visible SDTV marks with the actual app wor
 - Immediate code rollback: redeploy the prior verified implementation `8d6ee26937dd31a980b3373486874c0964da2250` to this isolated project; never deploy archived root HTML.
 
 Review artifacts and screenshots are retained in GitHub; local checking servers are stopped at handoff. The previously retained clone/build directory is not silently removed or cleaned through an alternate mechanism after the earlier cleanup restriction. It is reproducible, pushed work, not the sole remaining copy.
+
+Cleanup note: removal of this turn's own `D:\codex-runs\danzuni-logo-review-20260907` was also rejected by the execution policy before execution. No alternate deletion method was attempted. This directory therefore retains only review scratch/copies; canonical evidence is committed. The existing clone `D:\codex-worktrees\sdtv-landing\go-danzuni-20260907` and prior build directory `D:\codex-runs\danzuni-go-transfer-20260907` also remain. No unpushed implementation is left at handoff.
