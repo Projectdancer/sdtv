@@ -38,4 +38,18 @@ Keep branch/evidence on GitHub before deleting the disposable clone. Build outpu
 
 ## Final publication acceptance
 
-Pending final exact-SHA deployment and go.danzuni.com HTTP/browser smoke check at the time of this initial handoff commit. Do not interpret this paragraph as completed publication; append verified results before final user handoff.
+Completed on 2026-09-07. The deployed implementation is commit `8d6ee26937dd31a980b3373486874c0964da2250`.
+
+- Production deployment: `dpl_A6q45RJ4zXoYnJNNP3dVcLSSeKyH`, READY, project `danzuni-go`.
+- Immutable URL: `https://danzuni-7bnev7tah-kirill-dancer-7625s-projects.vercel.app`.
+- Public host: `https://go.danzuni.com/` (assigned only to this new project).
+- PASS: `node scripts/smoke.mjs`, read-only production check at `2026-09-07T17:12:41.971Z`.
+- HTTPS status 200 and deployed HTML exactly matches reviewed build: SHA-256 `35391184d28acb60a51cd65bd867cd86eb35599973f43eefd7281d9533b2dd5a`.
+- All 150 deployed static resources return HTTP 200; source scripts, Git, original CNAME and unknown routes return 404; CSP and nosniff headers are present.
+- Old `go.socialdancetv.com` returns 200 and its original HTML hash is unchanged after the new-domain assignment.
+- Browser desktop/mobile on the actual custom domain: no missing images or forms; mobile menu opens and closes after navigation; original hero/layout preserved. Evidence: `docs/evidence/production-desktop.png`, `production-mobile.png`.
+- Primary CTA tested: it reaches the Danzuni application, whose existing auth guard shows Log In for this unauthenticated session. This is NOT an anonymous/public catalog launch or proof of paid account access.
+- Existing `app.danzuni.com` remains assigned to `sdtv-learn-web`. No app/API/DNS record changes or new backend credentials were made.
+- Production deployment command included exact SHA, branch and descriptive GitHub commit message metadata; the CLI's compact inspect output does not expose metadata, so no claim is made about a separately verified dashboard display label.
+
+Implementation and this acceptance/evidence update are saved to the dedicated GitHub branch. No PR or merge into `master`/`master-update` was created. The disposable clone and generated site may be removed after the final branch SHA is verified on GitHub; everything needed to reproduce it is committed.

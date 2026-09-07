@@ -42,4 +42,8 @@ Evidence is committed under `docs/evidence/` (captured initially under `D:/codex
 - NOT RUN: purchases, coupon activation, email delivery, login submission, backend changes. Outside this transfer and intentionally disabled/not invoked.
 - Legacy testimonial authenticity, current class inventory and full rebranding remain content-owner follow-up, not claimed as newly audited evidence.
 
+## Live acceptance
+
+`https://go.danzuni.com/` is live on deployed implementation `8d6ee26937dd31a980b3373486874c0964da2250`. Desktop/mobile captures are `docs/evidence/production-desktop.png` and `production-mobile.png`. Verified 150 static resources, HTML hash equality, isolation headers, working mobile navigation and intact old source site. The app CTA reaches the existing unauthenticated Log In guard, not a public catalog. See `docs/handoff.md` for exact deployment ID and smoke evidence.
+
 final result: passed
