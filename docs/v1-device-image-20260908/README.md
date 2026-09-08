@@ -48,3 +48,7 @@ Only deploy the compound generated release directory, never repository root. Inc
 - Main root HTML remains 2185e5fb4cf7348f7be928fdaa003959afdbbc76152b69e81ccb3ff1065a161c. New V1 HTML is c9fec1db1587e3f920f4706803cf966df744643e9242fd4bbfbf326916125d08. All 152 root files unchanged.
 - PASS live visual checks: 390x844 and 1440x900; updated image loaded at 1474x1067 natural dimensions, no clipping in its section, correct aspect ratio, no sampled horizontal overflow or captured console errors. Screenshots in evidence/live-mobile.png and evidence/live-desktop.png were opened and reviewed. Temporary browser viewport override reset.
 - Public test URL: https://go.danzuni.com/v1#join . No authorization to replace root is inferred.
+
+## Cleanup state
+
+This task's attempted cleanup of D:\codex-runs\danzuni-v1-device-image-20260908 was rejected by execution policy before it ran. No alternative deletion route was attempted. The directory still holds reproducible candidate/release output and staged verification downloads; there is no unique unpushed implementation there. The local port4190 preview process was stopped. The existing worktree remains necessary for earlier unrelated untracked audits and logo/extraction work, which were not staged or removed. This task's asset, implementation and live acceptance screenshots are pushed.
