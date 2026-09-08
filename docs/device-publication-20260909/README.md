@@ -39,3 +39,22 @@ Commit/push only this device implementation/evidence to existing branch `codex/g
 Rollback is promotion of the verified previous deployment above; no DNS removal or archived-root publishing. Runtime flags/config are unchanged.
 
 Important: earlier prepared V1-only polish artifact assumes the old root. After this device publication it MUST NOT be promoted as-is, because it would revert the newly approved root illustration. Rebase any future CTA/footer release on this309-resource manifest and re-verify preservation. Local previews4198/4199 are not proof of hosted state.
+
+## Actual production acceptance
+
+Implementation commit `1a7afb1cfbf5916f0666cc585fb62e40225f0fa9` was pushed and the remote SHA verified on `codex/go-danzuni-20260907`. Deployment `dpl_334Sf5hyx3rXGV65sFtzxmu1yR4U`, `https://danzuni-k3wlvnvxq-kirill-dancer-7625s-projects.vercel.app`, reached READY. Descriptive SHA/ref/commit-message metadata was supplied at deploy time; inspect output does not independently expose that metadata.
+
+Before promotion, authenticated `vercel curl` GET responses matched SHA256 for root HTML, V1 HTML and both PNG/CSS paths (6 checks). Initial curl invocation lacked project environment IDs and stopped at project-link confirmation; rerun with the existing project/org IDs passed without changing protection settings. The previous live 305-resource manifest passed again at `2026-09-08T23:37:15.322Z`.
+
+`vercel promote` of this exact deployment succeeded under the owner's explicit image publication approval. Post-deploy command:
+
+```powershell
+$env:LANDING_RELEASE_DIR='D:\codex-runs\danzuni-device-production-20260909\release'
+node scripts/smoke-v1.mjs
+```
+
+PASS at `2026-09-08T23:38:39.471Z`: all 309 live resource hashes, root and both V1 URL forms, security/noindex headers, private-path 404 boundaries and unchanged original Social Dance TV page. Root and V1 hashes match the exact candidate above. This is image-only production acceptance, not sign-in, payment, accessibility or conversion certification.
+
+Live browser root/V1 inspected at desktop 1440×1000 and mobile 390×844. Natural image 1474×1067 and computed contour shadow verified. Screenshots accompany this record. On mobile root, document width 375 is within viewport 390; image width 343.2, no sampled horizontal overflow. All surrounding legacy copy and footer remain intentionally unchanged.
+
+Unpublished motion/footer/audit work remains in `D:\codex-worktrees\sdtv-landing\go-danzuni-20260907`; preserve this dirty worktree. The current production image implementation and acceptance evidence are separately committed/pushed. Future V1 CTA publication requires a fresh candidate based on the new manifest, not the earlier old-root artifact.
