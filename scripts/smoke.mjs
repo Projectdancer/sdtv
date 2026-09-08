@@ -18,7 +18,7 @@ assert.match(response.headers.get('content-security-policy'),/connect-src 'none'
 assert.match(response.headers.get('content-security-policy'),/form-action 'none'/);
 assert.equal(response.headers.get('x-content-type-options'),'nosniff');
 console.log('PASS custom-domain HTTPS 200, exact HTML hash, isolation headers');
-for (const path of ['js/main.js','js/quality.js','css/quality.css']) {
+for (const path of ['js/main.js','js/quality.js','css/quality.css','js/clarity.js','css/clarity.css']) {
  const asset=await fetch(base+'/'+path);assert.equal(asset.status,200,path);
  assert.equal(hash(Buffer.from(await asset.arrayBuffer())),hash(await readFile(join(output,path))),path);
 }

@@ -5,7 +5,8 @@ import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { adaptHtml, adaptLegacyHtml } from './build.mjs';
-import { improveLegacyJs } from './landing-quality.mjs';
+import { improveHtml, improveLegacyJs } from './landing-quality.mjs';
+import { clarifyHtml } from './landing-clarity.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = process.env.LANDING_OUTPUT_DIR;
 assert.ok(output, 'Set LANDING_OUTPUT_DIR to the built, isolated site');
@@ -46,7 +47,7 @@ test('local HTML assets resolve, including responsive image variants',async()=>{
  }
 });
 test('CSS dependencies are local and resolve',async()=>{
- for(const name of ['style.css','aos.css','fonts.css','danzuni.css','quality.css']){
+ for(const name of ['style.css','aos.css','fonts.css','danzuni.css','quality.css','clarity.css']){
   const css=await readFile(join(output,'css',name),'utf8');
   for(const [,raw] of css.matchAll(/url\(([^)]+)\)/g)){
    const p=raw.replace(/["']/g,'').trim(); if(p.startsWith('data:'))continue;
@@ -63,10 +64,11 @@ test('all original image and video assets are byte-identical',async()=>{
 test('obsolete payment click hook removed without disabling real links',()=>{assert.doesNotMatch(js,/payment__side/);assert.match(js,/aria-selected/);});
 test('technical refinement preserves visible copy and navigation',()=>{
  const baseline=adaptLegacyHtml(source);
+ const technical=improveHtml(baseline);
  const visible=s=>s.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
  const links=s=>[...s.matchAll(/<a\b[^>]*href="([^"]*)"/g)].map(m=>m[1]);
- assert.equal(visible(html),visible(baseline));
- assert.deepEqual(links(html),links(baseline));
+ assert.equal(visible(technical),visible(baseline));
+ assert.deepEqual(links(technical),links(baseline));
 });
 test('nine previews have no eager MP4 source and preserve source identity',()=>{
  assert.equal([...html.matchAll(/<video\b/g)].length,9);
@@ -75,7 +77,8 @@ test('nine previews have no eager MP4 source and preserve source identity',()=>{
  assert.deepEqual([...html.matchAll(/data-src="([^\"]+\.mp4)"/g)].map(m=>m[1]),[...adaptLegacyHtml(source).matchAll(/src="([^\"]+\.mp4)"/g)].map(m=>m[1]));
 });
 test('below-fold images are lazy and reveal durations are bounded',()=>{
- assert.equal([...html.matchAll(/<img loading="lazy" decoding="async"/g)].length,60);
+ assert.equal([...html.matchAll(/<img loading="lazy" decoding="async"/g)].length,34);
+ assert.equal([...html.matchAll(/<img\b/g)].length,34);
  assert.doesNotMatch(html,/data-aos-duration="2000"/);
  assert.match(html,/data-aos-duration="450" data-aos-once="true"/);
 });
@@ -88,7 +91,7 @@ test('quality runtime is local and implements reduced-motion, keyboard and lifec
  assert.match(html,/<script src="js\/quality.js" defer>/);
  for(const value of ['prefers-reduced-motion','ArrowRight','ArrowLeft','Home','End','Escape','visibilitychange','IntersectionObserver','video.pause()','panel.inert']) assert.ok(runtime.includes(value),value);
 });
-test('runtime has no provider or analytics network primitives',async()=>assert.doesNotMatch(js+await readFile(join(output,'js/quality.js'),'utf8'),/fetch\(|XMLHttpRequest|sendBeacon|localStorage|sessionStorage|document\.cookie/));
+test('runtime has no provider or analytics network primitives',async()=>assert.doesNotMatch(js+await readFile(join(output,'js/quality.js'),'utf8')+await readFile(join(output,'js/clarity.js'),'utf8'),/fetch\(|XMLHttpRequest|sendBeacon|localStorage|sessionStorage|document\.cookie/));
 test('strict deployment boundary forbids connect/form/frame/object',async()=>{
  const config=JSON.parse(await readFile(join(output,'vercel.json'),'utf8'));
  assert.equal(config.framework,null);assert.equal(config.buildCommand,null);
@@ -96,5 +99,50 @@ test('strict deployment boundary forbids connect/form/frame/object',async()=>{
  for(const directive of ["connect-src 'none'","form-action 'none'","frame-ancestors 'none'","object-src 'none'"])assert.ok(csp.includes(directive));
 });
 test('source CNAME, scripts, Git and docs are excluded from deployment',async()=>{
- const files=await readdir(output);for(const p of ['CNAME','.git','scripts','deployment','README.md'])assert.ok(!files.includes(p),p);
+ const files=await readdir(output);for(const p of ['CNAME','.git','scripts','deployment','docs','README.md'])assert.ok(!files.includes(p),p);
+});
+test('clarity adapter is explicit and fails closed on changed markup',()=>{
+ assert.throws(()=>clarifyHtml('<html></html>'),/Clarity source changed/);
+ assert.throws(()=>clarifyHtml(improveHtml(adaptLegacyHtml(source)).replace('class="intro__title"','class="changed-title"')),/Clarity source changed/);
+});
+test('hero keeps the original scene and makes the destination explicit',()=>{
+ assert.match(html,/<h1 class="intro__title">Your dance studio\.<br>Wherever you are\.<\/h1>/);
+ assert.match(html,/Online salsa, bachata and more — at your pace/);
+ assert.match(html,/aria-describedby="intro-access-note">Explore classes<\/a>/);
+ assert.match(html,/id="intro-access-note">Sign in to access classes\./);
+ assert.equal([...html.matchAll(/From the team behind /g)].length,1);
+ assert.doesNotMatch(html,/>SDTV<|>Membership<|>Take class<|The Only Studio|danz\.uni|intro__origin/);
+ assert.match(html,/class="page-footer__origin"/);
+});
+test('unverified catalog and testimonial examples are not rendered',()=>{
+ assert.doesNotMatch(html,/class="reviews"|class="classes"|Jane Smith|Oye Como Va/);
+ assert.match(source,/Jane Smith/); // Archive retained, not rewritten as new evidence.
+ assert.match(source,/Oye Como Va/);
+ assert.doesNotMatch(html,/&quot;item&quot;/);
+ assert.match(html,/class="instructors__cta-block"/);
+ assert.match(html,/aria-describedby="instructors-access-note">Explore classes<\/a>/);
+ assert.equal([...html.matchAll(/class="instructors__name"/g)].length,21);
+});
+test('mobile art direction keeps a strong hero and the original photographic gateway',async()=>{
+ const css=await readFile(join(output,'css/clarity.css'),'utf8');
+ assert.match(css,/font-size: clamp\(28px, 9\.1vw, 36px\)/);
+ assert.doesNotMatch(css,/\.instructors__list\s*\{|\.instructors__name\s*\{|\.instructors__list::before/);
+ const runtime=await readFile(join(output,'js/clarity.js'),'utf8');
+ assert.match(runtime,/querySelectorAll\('\.danzuni-access__cta, \.instructors__cta-btn'\)/);
+});
+test('only source-backed player controls are described, with device limitation',()=>{
+ for(const id of ['mirror-video','loop-moves','control-speed'])assert.match(html,new RegExp(`id="${id}"`));
+ assert.doesNotMatch(html,/switch-views|different angles|cast directly|image\/wepb/);
+ assert.match(html,/Controls vary by device/);
+ assert.match(html,/Repeat a section while you practise/);
+ assert.equal([...html.matchAll(/srcset="\.\/img\/main\/mob-program.webp"/g)].length,3);
+});
+test('one compact access action, preserved support and legal destinations',()=>{
+ assert.equal([...html.matchAll(/class="button danzuni-access__cta"/g)].length,1);
+ assert.doesNotMatch(html,/<li class="tariff">/);
+ for(const path of ['terms','privacy'])assert.match(html,new RegExp(`href="https://app.danzuni.com/${path}"`));
+ assert.match(html,/href="mailto:info@socialdancetv.com"/);
+ assert.match(html,/&copy; 2026 Social Dance TV. Danzuni. All Rights Reserved/);
+ assert.match(html,/class="banner" id="banner" hidden/);
+ assert.match(html,/<script src="js\/clarity.js" defer>/);
 });

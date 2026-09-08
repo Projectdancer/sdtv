@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { improveHtml, improveLegacyJs } from './landing-quality.mjs';
+import { clarifyHtml } from './landing-clarity.mjs';
 
 // The published legacy page stays immutable. Only this adapter changes the new host.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -65,7 +66,7 @@ export function adaptLegacyHtml(source) {
   return html;
 }
 
-export function adaptHtml(source) { return improveHtml(adaptLegacyHtml(source)); }
+export function adaptHtml(source) { return clarifyHtml(improveHtml(adaptLegacyHtml(source))); }
 
 export async function build(output = process.env.LANDING_OUTPUT_DIR || join(root, 'dist')) {
   const destination = resolve(output);

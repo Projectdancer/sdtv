@@ -63,4 +63,20 @@ Scope: actual application wordmark in header/footer; no new layout/content from 
 - Automated PASS: build and 18/18 tests. Provider activation, payments, account submission and full accessibility audit NOT RUN (out of scope). Current review does not re-certify untouched legacy testimonial/copy claims.
 - Live acceptance PASS on `07637955b9044f14563df40704d4ced049a56d32`: `12-live-mobile.png`, `13-live-desktop.png`; exact deployed HTML hash and all 150 assets checked, warning/error log empty. Full details and rollback in `docs/handoff.md`.
 
+## Owner-selected /v1 correction — 2026-09-08
+
+This acceptance is for the isolated candidate, not a replacement of `/`.
+
+- Visual target: the preceding owner-approved mobile art-direction correction and restored production instructor mosaic. Sources opened together with final implementation: `docs/audits/mobile-art-direction-20260908/02-local-390.png`, `docs/audits/instructors-art-direction-20260908/01-live-mobile.png`.
+- Implementation: `docs/v1-20260908/evidence/03-hero-390-revised.png` and `02-instructors-390.png`; both390×844 CSS viewport,375×811 saved pixels. Equal-surface rasters reviewed together without normalization. Header/anchor offsets are not used as exact pixel-alignment claims. Focused crops unnecessary: the relevant headline, notes, faces and button are legible in these section captures.
+- Additional implementation states:375×667,320×667 and1440×900; files04–07 in the same evidence folder. Native device scale is not asserted; the in-app capture surface returns content rasters with its own framing.
+- [P1, fixed] The clarity candidate turned the compact instructor mosaic into a2050px directory and removed its overlay invitation. Restored production grid, gradient and overlay; verified section741.75px at390. Retained true destinations, readable sign-in context and alt fixes. Global sticky CTA hides when the instructor CTA is visible.
+- [P2, fixed] First attempted larger headline wrapped to three lines (`01-hero-390.png`); replaced with a responsive34–36px range on375/390 plus deliberate -.035em spacing and a narrow-screen fallback. Post-fix03/04/05 show two lines at390/375/320. Photo container starts301.70px at390 versus350.25px in the rejected clarity candidate; no horizontal overflow in sampled widths.
+- [P2, fixed] Brand spelling in visible/ARIA labels corrected from dotted Instagram spelling to Danzuni. One marketing origin line remains in the footer; legal copyright preserved.
+- Typography: original Poppins and weights retained; strengthened headline hierarchy, shorter two-line supporting sentence, readable13px access note. Color tokens and imagery are unchanged. Images are original bytes; no generated assets, placeholder drawings or new logo were introduced. Existing dark mosaic gradients intentionally restored, not a new visual style.
+- Copy: retains the studio/anywhere promise, one specific subtitle, Explore classes invitation and truthful sign-in context. No new offer, inventory count, translation coverage or testimonial evidence.
+- Local route interaction PASS at `http://127.0.0.1:4186/v1/`: mobile menu opened; Instructors click retained `/v1/` and closed the menu; instructor overlay visible with no repeated bottom CTA; Loop moves selected exactly its panel;0 broken loaded images and0 sampled console errors. No auth submission or payment action.
+- Static/runtime PASS:53 candidate tests plus6 isolation tests. Independent review also compared all152 root public files directly with the original production artifact. Read-only pre-publication smoke verified every root resource against live SHA-256 at2026-09-08T11:11:36.310Z.
+- NOT RUN: physical iOS/Android, full accessibility certification, conversion experiment. No remaining actionable P0/P1/P2 mismatch in the selected correction scope. Instructor dimming strength remains subjective polish for owner testing, not a catalog-availability claim.
+
 final result: passed
