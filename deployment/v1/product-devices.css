@@ -1,0 +1,4 @@
+/* Local product preview: a static shadow follows the transparent device contour. */
+#join .join__image--transparent {
+  filter: drop-shadow(0 8px 12px rgb(36 36 40 / 0.10));
+}
