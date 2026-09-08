@@ -62,3 +62,5 @@ Unrelated local logo assets, extraction helper and other historical audit work r
 - PASS actual instructor CTA navigation reaches the existing app Log In screen. No login submitted, user record created, payment attempted or email sent. This remains an account-gated destination, not a newly public catalog.
 
 Public owner-test URL: https://go.danzuni.com/v1 . The main https://go.danzuni.com/ retains its prior content, assets and behavior. Owner visual approval of v1 is still pending; publication for testing is not approval to replace root.
+
+Cleanup: deletion of this turn's own scratch `D:\codex-runs\danzuni-v1-20260908` was rejected by the execution policy before execution. No alternate deletion method was attempted. The directory retains reproducible baseline exports, failed packaging iterations, final release artifact and staged-response checks; all unique implementation/acceptance evidence is pushed. The worktree also remains necessary for earlier unrelated uncommitted assets/audits. No claim of a fully clean workspace is made.
