@@ -1,0 +1,70 @@
+/* V1-only footer. All original page surfaces and scripts remain unchanged. */
+.danzuni-footer {
+  background: #242428;
+  color: #fafafa;
+  padding: 64px 0 22px;
+  padding-bottom: max(22px, env(safe-area-inset-bottom));
+}
+.danzuni-footer__inner { padding-inline: 32px; }
+.danzuni-footer__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  padding-bottom: 42px;
+}
+.danzuni-footer__brand { min-width: 0; }
+.danzuni-footer__home { display: block; position: relative; width: 320px; max-width: 100%; }
+.danzuni-footer__logo, .danzuni-footer__logo-ink { display: block; width: 100%; height: auto; }
+/* Use the exact approved PNG contours. Hide only its small tagline, retaining
+   the full dancer. Recolour only the black DANZ ink for the dark surface;
+   the original dancer and UNI gradient pixels are not filtered or redrawn. */
+.danzuni-footer__logo { clip-path: polygon(0 0, 100% 0, 100% 80%, 26% 80%, 26% 100%, 0 100%); }
+.danzuni-footer__logo-ink {
+  position: absolute;
+  inset: 0;
+  filter: brightness(0) invert(1);
+  clip-path: inset(0 28.5% 20% 26.6%);
+  pointer-events: none;
+}
+.danzuni-footer__origin { margin: 20px 0 0; font-size: 14px; line-height: 1.7; color: #c4c4ce; }
+.danzuni-footer a { text-underline-offset: 4px; }
+.danzuni-footer__origin a { color: #ededf2; text-decoration: underline; text-decoration-color: #777780; }
+.danzuni-footer__actions { flex: 0 0 224px; text-align: right; }
+.danzuni-footer .danzuni-footer__cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 100%; min-width: 0; min-height: 52px;
+  padding: 14px 24px; margin: 0; border: 0; border-radius: 6px;
+  background: #6255ed; color: #fff;
+  font-size: 14px; font-weight: 600; line-height: 24px; letter-spacing: .7px;
+  text-transform: uppercase;
+  transition: background-color 160ms ease;
+}
+.danzuni-footer .danzuni-footer__cta:hover { background: #5143d8; color: #fff; }
+.danzuni-footer__note { margin: 10px 0 0; font-size: 12px; line-height: 20px; color: #b9b9c6; }
+.danzuni-footer__support { display: inline-flex; align-items: center; min-height: 44px; margin-top: 7px; color: #ededf2; font-size: 14px; line-height: 20px; }
+.danzuni-footer__bottom {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  border-top: 1px solid #45454d; padding-top: 16px;
+}
+.danzuni-footer__copyright { color: #b9b9c6; font-size: 12px; line-height: 20px; }
+.danzuni-footer__legal { display: flex; align-items: center; gap: 28px; }
+.danzuni-footer__legal a { display: inline-flex; align-items: center; min-height: 44px; color: #c4c4ce; font-size: 13px; line-height: 20px; }
+.danzuni-footer__support:hover, .danzuni-footer__legal a:hover { color: #fff; text-decoration: underline; }
+.danzuni-footer a:focus-visible { outline: 2px solid #b8b0ff; outline-offset: 5px; border-radius: 3px; }
+@media (max-width: 720px) {
+  .danzuni-footer { padding-top: 40px; }
+  .danzuni-footer__inner { padding-inline: 24px; }
+  .danzuni-footer__main { flex-direction: column; align-items: stretch; gap: 28px; padding-bottom: 26px; }
+  .danzuni-footer__home { width: 282px; }
+  .danzuni-footer__origin { margin-top: 16px; font-size: 13px; }
+  .danzuni-footer__actions { flex-basis: auto; text-align: center; }
+  .danzuni-footer .danzuni-footer__cta { min-height: 52px; }
+  .danzuni-footer__note { font-size: 13px; }
+  .danzuni-footer__bottom { flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 20px; }
+  .danzuni-footer__copyright { max-width: 30em; }
+  .danzuni-footer__legal { gap: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .danzuni-footer .danzuni-footer__cta { transition: none; }
+}
