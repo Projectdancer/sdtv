@@ -19,6 +19,8 @@ test('only footer, retired tagline and stylesheet change in V1',()=>{
 test('one accessible footer, exact approved links, no new offer or forms',()=>{
  const f=after.match(/<footer\b[\s\S]*?<\/footer>/g);assert.equal(f.length,1);
  assert.match(f[0],/class="danzuni-footer" id="footer"/);
+ assert.match(f[0],/<small class="danzuni-footer__copyright">&copy; 2026 Danzuni by Social Dance TV<\/small>/);
+ assert.doesNotMatch(f[0],/All Rights Reserved/);
  assert.deepEqual([...f[0].matchAll(/href="([^"]+)"/g)].map(m=>m[1]).sort(),['/v1/','https://socialdancetv.com/','https://app.danzuni.com/classes','mailto:info@socialdancetv.com','https://app.danzuni.com/terms','https://app.danzuni.com/privacy'].sort());
  assert.match(f[0],/aria-describedby="footer-access-note"/);assert.match(f[0],/id="footer-access-note">Sign in to access classes\./);
  assert.doesNotMatch(f[0],/<form|<script|checkout|trial|payment/i);

@@ -24,7 +24,7 @@ const footer = `<footer class="danzuni-footer" id="footer">
       </div>
     </div>
     <div class="danzuni-footer__bottom">
-      <small class="danzuni-footer__copyright">&copy; 2026 Social Dance TV. Danzuni. All Rights Reserved</small>
+      <small class="danzuni-footer__copyright">&copy; 2026 Danzuni by Social Dance TV</small>
       <nav class="danzuni-footer__legal" aria-label="Legal"><a href="https://app.danzuni.com/terms">Terms</a><a href="https://app.danzuni.com/privacy">Privacy</a></nav>
     </div>
   </div>
