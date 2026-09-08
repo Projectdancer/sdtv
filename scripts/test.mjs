@@ -4,7 +4,8 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { adaptHtml } from './build.mjs';
+import { adaptHtml, adaptLegacyHtml } from './build.mjs';
+import { improveLegacyJs } from './landing-quality.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = process.env.LANDING_OUTPUT_DIR;
 assert.ok(output, 'Set LANDING_OUTPUT_DIR to the built, isolated site');
@@ -12,7 +13,8 @@ const source = await readFile(join(root, 'index.html'), 'utf8');
 const html = await readFile(join(output, 'index.html'), 'utf8');
 const js = await readFile(join(output, 'js/main.js'), 'utf8');
 test('published HTML is exactly the reviewed adapter output',()=>assert.equal(html,adaptHtml(source)));
-test('logo-only revision preserves all other published HTML',()=>{
+test('archived logo-only baseline remains unchanged',()=>{
+ const html=adaptLegacyHtml(source);
  const marks=/<span class="(?:danzuni-header-logo|page-footer__logo danzuni-footer-logo)">[\s\S]*?<\/span><\/span>/g;
  assert.equal([...html.matchAll(marks)].length,2);
  const normalized=html.replace(marks,'__BRAND_MARK__');
@@ -44,7 +46,7 @@ test('local HTML assets resolve, including responsive image variants',async()=>{
  }
 });
 test('CSS dependencies are local and resolve',async()=>{
- for(const name of ['style.css','aos.css','fonts.css','danzuni.css']){
+ for(const name of ['style.css','aos.css','fonts.css','danzuni.css','quality.css']){
   const css=await readFile(join(output,'css',name),'utf8');
   for(const [,raw] of css.matchAll(/url\(([^)]+)\)/g)){
    const p=raw.replace(/["']/g,'').trim(); if(p.startsWith('data:'))continue;
@@ -58,8 +60,35 @@ test('all original image and video assets are byte-identical',async()=>{
   const name=join(dir,entry.name);if(entry.isDirectory())await check(name);else assert.deepEqual(createHash('sha256').update(await readFile(join(root,name))).digest(),createHash('sha256').update(await readFile(join(output,name))).digest(),name);
  }} await check('img');await check('video');
 });
-test('obsolete payment click hook removed without disabling real links',()=>{assert.doesNotMatch(js,/payment__side/);assert.match(js,/figure--video/);assert.match(js,/aria-selected/);});
-test('runtime has no provider or analytics network primitives',()=>assert.doesNotMatch(js,/fetch\(|XMLHttpRequest|sendBeacon|localStorage|sessionStorage|document\.cookie/));
+test('obsolete payment click hook removed without disabling real links',()=>{assert.doesNotMatch(js,/payment__side/);assert.match(js,/aria-selected/);});
+test('technical refinement preserves visible copy and navigation',()=>{
+ const baseline=adaptLegacyHtml(source);
+ const visible=s=>s.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
+ const links=s=>[...s.matchAll(/<a\b[^>]*href="([^"]*)"/g)].map(m=>m[1]);
+ assert.equal(visible(html),visible(baseline));
+ assert.deepEqual(links(html),links(baseline));
+});
+test('nine previews have no eager MP4 source and preserve source identity',()=>{
+ assert.equal([...html.matchAll(/<video\b/g)].length,9);
+ assert.equal([...html.matchAll(/preload="none" playsinline aria-hidden="true"/g)].length,9);
+ assert.doesNotMatch(html,/<source src="[^\"]*\.mp4/);
+ assert.deepEqual([...html.matchAll(/data-src="([^\"]+\.mp4)"/g)].map(m=>m[1]),[...adaptLegacyHtml(source).matchAll(/src="([^\"]+\.mp4)"/g)].map(m=>m[1]));
+});
+test('below-fold images are lazy and reveal durations are bounded',()=>{
+ assert.equal([...html.matchAll(/<img loading="lazy" decoding="async"/g)].length,60);
+ assert.doesNotMatch(html,/data-aos-duration="2000"/);
+ assert.match(html,/data-aos-duration="450" data-aos-once="true"/);
+});
+test('legacy scroll and hover handlers removed with a fail-closed adapter',()=>{
+ assert.doesNotMatch(js,/t\.style\.left|t\.load\(\)|"mouseover"|"mouseout"/);
+ assert.throws(()=>improveLegacyJs('unknown runtime'),/Legacy interaction changed/);
+});
+test('quality runtime is local and implements reduced-motion, keyboard and lifecycle guards',async()=>{
+ const runtime=await readFile(join(output,'js/quality.js'),'utf8');
+ assert.match(html,/<script src="js\/quality.js" defer>/);
+ for(const value of ['prefers-reduced-motion','ArrowRight','ArrowLeft','Home','End','Escape','visibilitychange','IntersectionObserver','video.pause()','panel.inert']) assert.ok(runtime.includes(value),value);
+});
+test('runtime has no provider or analytics network primitives',async()=>assert.doesNotMatch(js+await readFile(join(output,'js/quality.js'),'utf8'),/fetch\(|XMLHttpRequest|sendBeacon|localStorage|sessionStorage|document\.cookie/));
 test('strict deployment boundary forbids connect/form/frame/object',async()=>{
  const config=JSON.parse(await readFile(join(output,'vercel.json'),'utf8'));
  assert.equal(config.framework,null);assert.equal(config.buildCommand,null);

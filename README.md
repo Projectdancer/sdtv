@@ -42,3 +42,9 @@ Link only the **generated site directory** to Vercel, never repository root. Dep
 See `design-qa.md` for visual evidence and `docs/handoff.md` for deployment state, rollback and remaining owner decisions. Automated static validation covers 18 tests, including a hash proving that the logo-only update changes no other HTML, accessible wordmarks, asset byte parity, internal links, local fonts, no card/email forms, no old prices/Groupon links, adapter provenance, and CSP isolation.
 
 Next stage: owner-approved Danzuni branding/copy and real catalog selection, then separately approved membership/offer terms. Do not infer commercial approval from this landing deployment.
+
+## Local technical refinement — 2026-09-08 (not deployed)
+
+The follow-up quality pass preserves the archived HTML/CSS/JS and all media bytes. `scripts/landing-quality.mjs` adds deferred preview sources, lazy below-fold images and shorter one-time AOS reveals to the generated HTML, and removes the archived scroll/hover handlers with exact-match guards. `js/quality.js` handles preview lifecycle, reduced motion, tab keyboard semantics and mobile menu Escape/focus wrap. `css/quality.css` supplements reduced-motion scrolling. No copy, CTA destination, provider or commercial setting changes.
+
+Run both suites after building: `node --test scripts/test.mjs scripts/quality-runtime.test.mjs`. Current scope is 23 static/integration contracts plus 6 runtime unit cases. The historical logo-only hash remains tested against `adaptLegacyHtml`; the new output is separately checked for identical visible copy and navigation. See [local handoff and browser evidence](docs/quality-refinement-2026-09-08.md). This is uncommitted working-tree work, not the live deployment.

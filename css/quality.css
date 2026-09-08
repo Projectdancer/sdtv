@@ -1,0 +1,5 @@
+/* Technical refinement only: no new palette, layout or content. */
+@media (prefers-reduced-motion: reduce) {
+  .slider__wrapper { scroll-behavior: auto !important; }
+  .figure__video { transition: none !important; }
+}

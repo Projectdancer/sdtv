@@ -2,10 +2,11 @@ import { mkdir, readFile, writeFile, cp } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { improveHtml, improveLegacyJs } from './landing-quality.mjs';
 
 // The published legacy page stays immutable. Only this adapter changes the new host.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-export function adaptHtml(source) {
+export function adaptLegacyHtml(source) {
   if (createHash('sha256').update(source).digest('hex') !== 'd5ac354b242a538ef412e791b02c360b7a8acc9370acd1e13abed5184d505652') {
     throw new Error('Legacy HTML changed: review the source before adapting it.');
   }
@@ -64,6 +65,8 @@ export function adaptHtml(source) {
   return html;
 }
 
+export function adaptHtml(source) { return improveHtml(adaptLegacyHtml(source)); }
+
 export async function build(output = process.env.LANDING_OUTPUT_DIR || join(root, 'dist')) {
   const destination = resolve(output);
   if (destination === root || !destination.toLowerCase().startsWith('d:\\')) throw new Error('Build output must be an isolated directory on D:.');
@@ -78,6 +81,7 @@ export async function build(output = process.env.LANDING_OUTPUT_DIR || join(root
   const obsolete = 'document.querySelector(".payment__side .classes-item").innerHTML=e.innerHTML';
   if (!js.includes(obsolete)) throw new Error('Source payment hook changed');
   js = js.replace(obsolete, 'void 0');
+  js = improveLegacyJs(js);
   await writeFile(join(destination, 'js/main.js'), js);
   await cp(join(root, 'deployment/vercel.json'), join(destination, 'vercel.json'));
   await cp(join(root, 'deployment/404.html'), join(destination, '404.html'));

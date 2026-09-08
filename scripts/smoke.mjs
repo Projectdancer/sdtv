@@ -4,7 +4,10 @@ import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 const output=process.env.LANDING_OUTPUT_DIR;
 assert.ok(output,'Set LANDING_OUTPUT_DIR');
-const base='https://go.danzuni.com';
+const base=(process.env.LANDING_SMOKE_URL || 'https://go.danzuni.com').replace(/\/$/,'');
+const target=new URL(base);
+assert.equal(target.protocol,'https:');
+assert.ok(target.hostname==='go.danzuni.com' || target.hostname.endsWith('.vercel.app'),'Unexpected smoke host');
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const response=await fetch(base);
 assert.equal(response.status,200);
@@ -15,6 +18,11 @@ assert.match(response.headers.get('content-security-policy'),/connect-src 'none'
 assert.match(response.headers.get('content-security-policy'),/form-action 'none'/);
 assert.equal(response.headers.get('x-content-type-options'),'nosniff');
 console.log('PASS custom-domain HTTPS 200, exact HTML hash, isolation headers');
+for (const path of ['js/main.js','js/quality.js','css/quality.css']) {
+ const asset=await fetch(base+'/'+path);assert.equal(asset.status,200,path);
+ assert.equal(hash(Buffer.from(await asset.arrayBuffer())),hash(await readFile(join(output,path))),path);
+}
+console.log('PASS exact deployed runtime and refinement CSS bytes');
 const files=[];
 async function walk(dir){for(const e of await readdir(dir,{withFileTypes:true})){
  if(e.name.startsWith('.'))continue;
