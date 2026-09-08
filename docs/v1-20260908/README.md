@@ -63,4 +63,6 @@ Unrelated local logo assets, extraction helper and other historical audit work r
 
 Public owner-test URL: https://go.danzuni.com/v1 . The main https://go.danzuni.com/ retains its prior content, assets and behavior. Owner visual approval of v1 is still pending; publication for testing is not approval to replace root.
 
+Subsequent owner-approved image update: [device illustration deployment and verification](../v1-device-image-20260908/README.md). The historical acceptance above remains the record for dd5c202; the linked report records the newer V1-only image release without changing root.
+
 Cleanup: deletion of this turn's own scratch `D:\codex-runs\danzuni-v1-20260908` was rejected by the execution policy before execution. No alternate deletion method was attempted. The directory retains reproducible baseline exports, failed packaging iterations, final release artifact and staged-response checks; all unique implementation/acceptance evidence is pushed. The worktree also remains necessary for earlier unrelated uncommitted assets/audits. No claim of a fully clean workspace is made.

@@ -37,3 +37,14 @@ node scripts/smoke-v1.mjs
 Release output must start empty. The final smoke is for the published new artifact; before publication, use the previous release artifact for live preflight. Do not use LANDING_SMOKE_PHASE=before on an existing V1.
 
 Only deploy the compound generated release directory, never repository root. Include exact Git SHA and descriptive commit subject in deployment metadata. Stage with production target and skip-domain, verify the hosted artifact, then promote within the existing danzuni-go project. The public root must retain all 152 original resource bytes.
+
+## Published acceptance
+
+- Implementation SHA: 08e84e505f1fe1a7fcdcd740d26f4ee66ea86d4e. Committed and pushed; remote branch SHA confirmed. Exact-SHA rerun of the four test suites: 61 PASS, 0 FAIL, 0 skipped.
+- Deployment: dpl_EezJxWqz1FvGZUHPYZoVP8AyNrmw, READY; immutable URL https://danzuni-hi5qoufqu-kirill-dancer-7625s-projects.vercel.app . Exact implementation SHA, branch and descriptive commit message verified in deployment metadata.
+- PASS staged authenticated checks: /, /v1 and the new PNG all returned HTTP 200 and exact expected SHA-256. Existing Vercel automation access used; no protection disabled. The PowerShell wrapper initially consumed the curl argument separator, so the same installed CLI was invoked directly through Node. No unsuccessful check was treated as a pass.
+- PASS final previous-release preflight at 2026-09-08T12:16:10.587Z, then promotion of this deployment within the existing danzuni-go project.
+- PASS full live smoke at 2026-09-08T12:16:40.272Z: 305 public resources verified by full GET and SHA-256, /v1 and /v1/ exact bytes, noindex only on V1, security headers intact, source/docs/unknown routes closed, old Social Dance TV source unchanged.
+- Main root HTML remains 2185e5fb4cf7348f7be928fdaa003959afdbbc76152b69e81ccb3ff1065a161c. New V1 HTML is c9fec1db1587e3f920f4706803cf966df744643e9242fd4bbfbf326916125d08. All 152 root files unchanged.
+- PASS live visual checks: 390x844 and 1440x900; updated image loaded at 1474x1067 natural dimensions, no clipping in its section, correct aspect ratio, no sampled horizontal overflow or captured console errors. Screenshots in evidence/live-mobile.png and evidence/live-desktop.png were opened and reviewed. Temporary browser viewport override reset.
+- Public test URL: https://go.danzuni.com/v1#join . No authorization to replace root is inferred.
