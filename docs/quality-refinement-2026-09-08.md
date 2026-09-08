@@ -1,5 +1,7 @@
 # Landing technical refinement — local handoff
 
+**Status superseded by publication acceptance below:** the local-only statements document the prior checkpoint. The owner subsequently approved applying the package; implementation is now pushed and deployed.
+
 Date: 2026-09-08. Base HEAD: `7a5f0658fb8a0ddcdcd45b2a320d97a4b4d5ba58`, branch `codex/go-danzuni-20260907`, repository Projectdancer/sdtv. All results below apply to this HEAD **plus the uncommitted working-tree changes**, not a new immutable commit or live deployment.
 
 ## Implemented
@@ -49,3 +51,20 @@ Worktree must be kept: `D:\codex-worktrees\sdtv-landing\go-danzuni-20260907` hol
 Cleanup attempt was rejected by the execution policy; no alternate deletion mechanism was attempted. Consequently `D:\codex-runs\danzuni-quality-20260908\site` remains on disk as disposable build output. No deletion was completed. It contains no unique source work; do not confuse it with the preserved worktree.
 
 To withdraw only this refinement, revert the tracked technical delta after preserving other user work and omit the new quality adapter/runtime/style and runtime-test files. Do not reset the entire worktree: it also contains the earlier uncommitted brand/audit work. Live deployment is unchanged, so no live rollback is needed.
+
+## Publication acceptance — 2026-09-08
+
+Owner explicitly approved applying the technical package. Implementation `f79115d531419cf85cce9f29abaad361f76a13d4` was committed and pushed to `codex/go-danzuni-20260907`; remote SHA verified. No master/master-update merge or original Pages release.
+
+- PASS: rebuild and all 29 tests on that implementation SHA, plus diff checks.
+- Preview: `dpl_2SrukTTzbtdDhyjYJTYahip17yt8`, READY, https://danzuni-gy6wloucg-kirill-dancer-7625s-projects.vercel.app . Anonymous smoke hit Vercel SSO protection and failed the expected URL assertion, not a site assertion. Authenticated `vercel curl` verified main.js, quality.js and quality.css byte-for-byte. Preview HTML equals the build plus exactly the platform-injected feedback script; that difference is not hidden as an exact raw-HTML match.
+- Access side effect: Vercel CLI automatically generated a project deployment-protection bypass token for the authenticated Preview check. Protection was not disabled; token value was not printed, copied to source, uploaded as an asset, or committed. Owner was informed. Do not claim no provider-account state changed: this tooling token is distinct from the unchanged payment/email/provider activation gates.
+- Production: `dpl_BDE4R9w6grMPDrzM58X1mxaXdNC5`, READY, https://danzuni-l7xwd740a-kirill-dancer-7625s-projects.vercel.app , alias https://go.danzuni.com/ . API verified target=production, exact implementation SHA and message `fix(landing): defer media and improve keyboard navigation`.
+- PASS live smoke at `2026-09-08T09:19:23.525Z`: HTTPS 200; exact HTML SHA `2185e5fb4cf7348f7be928fdaa003959afdbbc76152b69e81ccb3ff1065a161c`; exact runtime/refinement CSS bytes; all 152 static resources HTTP 200; source/Git/CNAME/unknown routes 404; unchanged isolation headers; original go.socialdancetv.com byte-identical.
+- PASS live browser: nine initially empty video currentSrc values; mobile Escape closes menu and returns focus; player ArrowRight selects/focuses Loop moves and exposes only its panel. Fresh desktop load at 1440×900: Features ArrowRight selects Stay Inspired with corresponding panel visible; transition duration 0.45s. No sampled horizontal overflow and no warning/error log entries. [Live mobile](evidence/quality-20260908/live-mobile-player.png), [live desktop](evidence/quality-20260908/live-desktop-features.png).
+- Scope limit: the archived slider caches measurements on initialization; changing viewport width without reload can leave positions stale. Final desktop evidence was taken after reload at the target width. Dynamic resize/orientation robustness remains follow-up, not a claimed pass.
+- Cold-network metrics, real mobile devices and full screen-reader audit remain NOT RUN. Existing catalog/review/CTA/branding issues remain separate.
+
+Rollback: republish the prior verified generated implementation `07637955b9044f14563df40704d4ced049a56d32` only to danzuni-go; prior deployment `dpl_9X9QUjnF47SFN7dwbuDT2C3A1Fjp`. Never deploy archived repository-root HTML or change the old Pages site/app/API.
+
+Source implementation and acceptance evidence are retained on GitHub. The worktree must still be kept because earlier `docs/brand`, `docs/audits` and `scripts/extract-selected-logo.py` remain uncommitted/unpushed. Existing scratch output and Preview-check copies remain in `D:\codex-runs\danzuni-quality-20260908`; previous cleanup policy rejection was not evaded or retried through another mechanism.
