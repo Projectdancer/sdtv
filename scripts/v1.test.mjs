@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
-import { v1Html, filesIn, hash, baselineHtmlHash } from './build-v1.mjs';
+import { v1Html, v1ProductHtml, productImagePath, productImageHash, filesIn, hash, baselineHtmlHash } from './build-v1.mjs';
 const output=process.env.LANDING_RELEASE_DIR;
 assert.ok(output, 'Set LANDING_RELEASE_DIR');
 const html=await readFile(join(output,'v1/index.html'),'utf8');
@@ -14,6 +14,25 @@ test('root is preserved byte-for-byte, including every asset in the pinned manif
 });
 test('candidate bytes match the scoped release manifest',async()=>{
  for(const [path,digest] of Object.entries(manifest.v1Files)) assert.equal(hash(await readFile(join(output,path))),digest,path);
+});
+test('only the approved product illustration changes in the candidate HTML',()=>{
+ const original='<img loading="lazy" decoding="async" class="join__image" src="img/screens.png" alt="Our  product" width="288" height="197">';
+ const updated=`<img loading="lazy" decoding="async" class="join__image" src="${productImagePath}" alt="Danzuni class library illustrated on desktop, tablet and phone" width="1474" height="1067">`;
+ assert.equal(v1ProductHtml('before'+original+'after'),'before'+updated+'after');
+ assert.throws(()=>v1ProductHtml('missing'),/Expected one/);
+ assert.throws(()=>v1ProductHtml(original+original),/Expected one/);
+ assert.throws(()=>v1ProductHtml(original.replace('screens.png','changed.png')),/Review changed/);
+ assert.match(html,new RegExp('src="/v1/'+productImagePath.replaceAll('.', '\\.')+'"'));
+ assert.ok(html.includes('width="1474" height="1067"'));
+});
+test('approved image is pinned, published only under v1, and original mockup is preserved',async()=>{
+ assert.equal(hash(await readFile(join(output,'v1',productImagePath))),productImageHash);
+ assert.equal(manifest.v1Files['v1/'+productImagePath],productImageHash);
+ assert.equal(manifest.rootFiles[productImagePath],undefined);
+ await assert.rejects(stat(join(output,productImagePath)),{code:'ENOENT'});
+ const original=await readFile(new URL('../img/screens.png',import.meta.url));
+ assert.deepEqual(await readFile(join(output,'img/screens.png')),original);
+ assert.deepEqual(await readFile(join(output,'v1/img/screens.png')),original);
 });
 test('v1 scopes assets but preserves fragment and external destinations',()=>{
  const input='<head></head><a href="/">Home</a><a href="#mirror-video">Mirror</a><a href="https://app.danzuni.com/classes">Classes</a><a href="mailto:info@socialdancetv.com">Support</a><use xlink:href="icons.svg#book"></use><img src="./img/Antonio &amp; Jasmina.jpg" srcset="img/a.jpg 1x, img/b.jpg 2x"><source data-src="./video/salsa.mp4"><link href="/favicon.ico">';

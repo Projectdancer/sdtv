@@ -7,6 +7,18 @@ import assert from 'node:assert/strict';
 export const baselineSha = 'f79115d531419cf85cce9f29abaad361f76a13d4';
 export const baselineHtmlHash = '2185e5fb4cf7348f7be928fdaa003959afdbbc76152b69e81ccb3ff1065a161c';
 export const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+export const productImagePath = 'img/danzuni-devices-642dba75.png';
+export const productImageHash = '642dba7579308024cf07e22a6ad4b710e4f139eb34b9eb57eef1dad62b637990';
+
+// Owner-approved test illustration, scoped to /v1 only. Never rewrite the
+// archived source or the pinned root artifact. Fail closed if that slot changes.
+export function v1ProductHtml(html) {
+  const images = [...html.matchAll(/<img\b[^>]*class="join__image"[^>]*>/g)];
+  assert.equal(images.length, 1, 'Expected one product illustration');
+  const original = '<img loading="lazy" decoding="async" class="join__image" src="img/screens.png" alt="Our  product" width="288" height="197">';
+  assert.equal(images[0][0], original, 'Review changed product illustration markup');
+  return html.replace(original, `<img loading="lazy" decoding="async" class="join__image" src="${productImagePath}" alt="Danzuni class library illustrated on desktop, tablet and phone" width="1474" height="1067">`);
+}
 
 // Hash links must stay literal: the legacy tabs use getAttribute('href').slice(1).
 // Absolute /v1 asset paths work both at /v1 and /v1/, without changing the root.
@@ -53,6 +65,9 @@ export async function assembleV1(baseline, candidate, destination) {
   for (const a of paths) for (const b of paths) if(a !== b) assert.ok(!a.startsWith(b+'\\'), 'No nested input/output directories');
   const oldHtml = await readFile(join(baseline, 'index.html'));
   assert.equal(hash(oldHtml), baselineHtmlHash, 'Pinned production HTML must match');
+  const productImage = await readFile(new URL('../deployment/v1/danzuni-devices-642dba75.png', import.meta.url));
+  assert.equal(hash(productImage), productImageHash, 'Approved product illustration bytes must match');
+  const candidateHtml = v1ProductHtml(await readFile(join(candidate, 'index.html'), 'utf8'));
   const baselineFiles = await filesIn(baseline);
   assert.ok(!baselineFiles.some(file => file.startsWith('v1/')), 'Baseline cannot already contain v1');
   await mkdir(destination, {recursive:true});
@@ -68,7 +83,10 @@ export async function assembleV1(baseline, candidate, destination) {
     await mkdir(resolve(destination, 'v1', path, '..'), {recursive:true});
     await cp(join(candidate, path), join(destination, 'v1', path));
   }
-  await writeFile(join(destination, 'v1/index.html'), v1Html(await readFile(join(candidate, 'index.html'), 'utf8')));
+  assert.ok(!candidateFiles.includes(productImagePath), 'Do not overwrite an existing candidate asset');
+  await writeFile(join(destination, 'v1', productImagePath), productImage);
+  candidateFiles.push(productImagePath);
+  await writeFile(join(destination, 'v1/index.html'), v1Html(candidateHtml));
   await writeFile(join(destination, 'vercel.json'), JSON.stringify({...oldConfig,
     rewrites: [{source:'/v1', destination:'/v1/index.html'}],
     headers: [...oldConfig.headers, {source:'/v1/:path*', headers:[{key:'X-Robots-Tag',value:'noindex, nofollow'}]}]
