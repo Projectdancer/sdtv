@@ -47,3 +47,18 @@ The before smoke refuses to overwrite an existing `/v1`; for subsequent changes,
 Promote the prior deployment `dpl_BDE4R9w6grMPDrzM58X1mxaXdNC5` within this isolated project to remove `/v1` while retaining the original landing. Never deploy archived source HTML or change app/API/DNS/payment settings.
 
 Unrelated local logo assets, extraction helper and other historical audit work remain outside this implementation commit; retain the worktree. Earlier cleanup policy rejections are not to be evaded. Scratch artifacts from failed parity iterations are not live or unique source work.
+
+## Published acceptance — 2026-09-08
+
+- Implementation `dd5c2027afafa83532cdf9a480be36b6db964f8b` committed and pushed to `codex/go-danzuni-20260907`; remote SHA verified. No merge into master/master-update, no old Pages release.
+- PASS on that SHA: `node --test scripts/test.mjs scripts/quality-runtime.test.mjs scripts/clarity-runtime.test.mjs scripts/v1.test.mjs` —59/59 tests, with the candidate/release environment paths above.
+- Deployment `dpl_7UVVgagncodAJ1w8PEUPjn7aNsEB`, READY. Immutable URL: https://danzuni-9ixjcxgv7-kirill-dancer-7625s-projects.vercel.app . API verified exact implementation SHA and descriptive metadata `feat(landing): isolated v1 mobile hero and instructor gateway`.
+- Uploaded with production target and `--skip-domain`, then authenticated checks verified `/` and `/v1` as HTTP200 and exact HTML bytes before promotion. Existing Vercel deployment-protection automation access was used; protection was not disabled. No authentication value is stored in this package.
+- Final root preflight at2026-09-08T11:17:39.386Z verified all152 root resources by full GET/SHA-256 and confirmed `/v1` did not exist before promotion.
+- Promoted only the existing isolated `danzuni-go` project. Immediate first custom-domain `/v1` request returned404 during propagation; no code change or weakened assertion was used. The subsequent browser check and full smoke passed.
+- PASS final read-only smoke at2026-09-08T11:18:17.733Z: `/v1`, `/v1/`, and its actual index/assets return expected bytes; all304 public resources checked by full GET/SHA-256; all152 root files unchanged; v1 noindex header present and root not marked noindex; isolation headers retained; source/Git/docs/unknown paths remain404; original Social Dance TV landing unchanged.
+- Root HTML SHA-256 remains `2185e5fb4cf7348f7be928fdaa003959afdbbc76152b69e81ccb3ff1065a161c`. V1 HTML SHA-256: `209c7999ec4c9bc22e272bfc376481aaff40ca50c054fb67e9772177654ddebc`.
+- PASS live browser390×844: two-line headline, original scene, mobile menu closes after Instructors link, restored instructor overlay, no repeated sticky CTA while the overlay button is visible, no sampled overflow or broken loaded images, no sampled console errors. Live captures08/09 are in `evidence/` and were opened and inspected.
+- PASS actual instructor CTA navigation reaches the existing app Log In screen. No login submitted, user record created, payment attempted or email sent. This remains an account-gated destination, not a newly public catalog.
+
+Public owner-test URL: https://go.danzuni.com/v1 . The main https://go.danzuni.com/ retains its prior content, assets and behavior. Owner visual approval of v1 is still pending; publication for testing is not approval to replace root.

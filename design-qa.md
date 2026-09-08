@@ -79,4 +79,6 @@ This acceptance is for the isolated candidate, not a replacement of `/`.
 - Static/runtime PASS:53 candidate tests plus6 isolation tests. Independent review also compared all152 root public files directly with the original production artifact. Read-only pre-publication smoke verified every root resource against live SHA-256 at2026-09-08T11:11:36.310Z.
 - NOT RUN: physical iOS/Android, full accessibility certification, conversion experiment. No remaining actionable P0/P1/P2 mismatch in the selected correction scope. Instructor dimming strength remains subjective polish for owner testing, not a catalog-availability claim.
 
+Live `/v1` acceptance: deployment `dpl_7UVVgagncodAJ1w8PEUPjn7aNsEB` on implementation `dd5c2027afafa83532cdf9a480be36b6db964f8b`. Browser captures `docs/v1-20260908/evidence/08-live-hero-390.png` and `09-live-instructors-390.png` were inspected; approved local composition retained. Mobile menu and overlay CTA work; the latter reaches the existing login screen without submitting anything. Full304-resource hash smoke passed at2026-09-08T11:18:17.733Z, including unchanged152-file root. This is an owner-test publication, not root redesign approval.
+
 final result: passed
