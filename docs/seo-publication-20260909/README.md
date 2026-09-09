@@ -42,3 +42,23 @@ Root still carries historical testimonial/class-card content preserved from the 
 Next owner-authenticated gate: check/verify the exact domain in Google Search Console and Bing Webmaster Tools, submit this sitemap, inspect canonical indexing and current Google generative-AI inclusion settings, then use actual search/citation data. No automated “AI recommendation score” or SEO100/100 is claimed. Missing translation routes are why no hreflang is invented. Broader authoritative lesson/instructor content and validated product availability remain separate from these metadata corrections.
 
 Rollback target: hero release `dpl_Gjf5EGHpZi8qK7Wtjv2KgCKiQibq`, `https://danzuni-dxjn81n8w-kirill-dancer-7625s-projects.vercel.app`. Application, payments, email, providers, database and their flags are untouched. Record actual test/deployment acceptance below after completion.
+
+## Published acceptance
+
+- Source and independent tests committed and pushed to `codex/go-danzuni-20260907` at `446d7d8648ede46ec9759d8add8b5092c87a5731`; remote SHA matched before deployment.
+- Exact 318-resource artifact deployed with `--prod --skip-domain`, explicit project/org and Git SHA/ref/message metadata. Vercel downloaded 319 files (318 public resources plus unchanged deployment configuration) and reached terminal `READY`.
+- Deployment: `dpl_Au9itqsUN8WmN3xzWAZ96P3oCZdD`; immutable URL: `https://danzuni-2ykf4x0ng-kirill-dancer-7625s-projects.vercel.app`.
+- Before promotion, authenticated Vercel curl compared exact bytes for `/`, `/v1`, `/v1/`, `/robots.txt`, `/sitemap.xml` and `/img/intro-desc.jpg`: PASS, exit 0.
+- Full previous-production 317-resource smoke: PASS at `2026-09-09T01:10:44.757Z`. Promotion of the exact candidate then returned Success.
+- Post-promotion command below: PASS at `2026-09-09T01:12:53.234Z`, all 318 public resources matched the candidate manifest. Root/V1 routes, security boundaries, private-path 404s and unchanged original Social Dance TV landing also passed.
+
+```powershell
+$env:LANDING_RELEASE_DIR='D:\codex-runs\danzuni-seo-20260909\release'
+node scripts/smoke-v1.mjs
+```
+
+Independent read-only live HTTP acceptance, completed `2026-09-09T01:14:20Z`: root HTTP 200, expected title/canonical/robots, valid connected JSON-LD; robots HTTP 200 with sitemap reference; sitemap HTTP 200 with `application/xml`, valid namespace and exactly the canonical root URL. Both `/v1` and `/v1/` retain `noindex, nofollow` meta and root canonical. Existing header distinction is preserved: `/v1` has `X-Robots-Tag: noindex, nofollow`; `/v1/` does not. This release does not change routing/header configuration.
+
+In-app browser root DOM independently confirmed the new metadata and Explore links to `/signup/1`; actual rendered first screen inspected and saved as `live-root.jpg`. Visible root body/styles/media are byte-identical to the immediately preceding hero release. Browser returned to live V1 with normal viewport; no local preview URL is needed for acceptance.
+
+NOT RUN: Search Console/Bing authenticated property verification, sitemap submission, real crawler-IP traffic analysis, external indexing/rich-result acceptance and ranking/citation/conversion measurements. These require owner access and/or elapsed real traffic, and are not replaced by the local or live HTTP checks.
