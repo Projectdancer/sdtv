@@ -1,0 +1,82 @@
+/* Selected Danzuni closing invitation; progressive enhancement, no hidden UI. */
+.danzuni-next {
+  background: #242428;
+  color: #fbfbfd;
+  padding: 82px 20px 24px;
+  scroll-margin-top: 64px;
+  font-family: 'Poppins', sans-serif;
+}
+.danzuni-next, .danzuni-next * { box-sizing: border-box; }
+.danzuni-next__inner { max-width: 1120px; margin-inline: auto; }
+.danzuni-next__title {
+  margin: 0 0 20px;
+  color: inherit;
+  font-size: clamp(32px, calc(17.143vw - 22.86px), 44px);
+  line-height: 1.19;
+  letter-spacing: -.035em;
+  font-weight: 700;
+}
+.danzuni-next__line { display: block; }
+.danzuni-next__cta {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  min-height: 56px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #6255ed;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: .075em;
+  text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 150ms ease;
+}
+.danzuni-next__label, .danzuni-next__arrow { position: relative; z-index: 1; }
+.danzuni-next__arrow { display: block; flex: 0 0 28px; transition: transform 150ms ease; }
+/* A transient light layer, never over the text. No persistent decorative asset. */
+.danzuni-next__light {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  top: -24px;
+  bottom: -24px;
+  left: 0;
+  width: 42%;
+  background: #fff;
+  filter: blur(18px);
+  transform: translateX(-200%);
+  opacity: 0;
+}
+.danzuni-next__signin { margin: 12px 0 0; color: #ebebef; font-size: 16px; line-height: 1.6; font-weight: 300; }
+.danzuni-next__details { border-top: 1px solid #414148; margin-top: 24px; padding-top: 24px; }
+.danzuni-next__details p { margin: 0; color: #b9b9c3; font-size: 14px; line-height: 1.65; font-weight: 300; }
+.danzuni-next__support { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; color: #ebebef; font-size: 16px; line-height: 1.6; text-decoration: underline; text-underline-offset: 4px; }
+.danzuni-next a:focus-visible { outline: 3px solid #fff; outline-offset: 5px; }
+.danzuni-next__cta:active { background: #5143d5; }
+@media (hover: hover) and (pointer: fine) {
+  .danzuni-next__cta:hover { background: #5849de; }
+  .danzuni-next__cta:hover .danzuni-next__arrow { transform: translateX(3px); }
+  .danzuni-next__support:hover { color: #fff; }
+}
+@media (min-width: 721px) {
+  .danzuni-next { padding: 100px 40px; scroll-margin-top: 80px; }
+  .danzuni-next__inner { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+  .danzuni-next__title { font-size: clamp(40px, 4.8vw, 64px); margin: 0; }
+  .danzuni-next__action { padding-top: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .danzuni-next *, .danzuni-next *::before, .danzuni-next *::after { animation: none !important; transition: none !important; }
+  .danzuni-next__line, .danzuni-next__arrow { transform: none !important; opacity: 1 !important; }
+  .danzuni-next__light { display: none !important; }
+}

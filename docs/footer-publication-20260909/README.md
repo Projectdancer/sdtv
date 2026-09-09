@@ -20,3 +20,11 @@ PASS: 4 tests, 0 failures, 0 skips. Includes byte-preservation, independent outs
 Publication gate: local desktop/mobile check, commit/push exact scope, staged production-target deploy with skip-domain, staged response verification, promote exact deployment, full live smoke and browser check. Rollback: promote previous deployment above. Physical devices, full accessibility certification, actual authentication or mail delivery and conversion measurement are NOT RUN.
 
 Preserve unrelated dirty work in `D:\codex-worktrees\sdtv-landing\go-danzuni-20260907`. Old polish artifacts must not be promoted because they contain superseded root/V1 bytes.
+
+## Actual publication and owner copy correction
+
+Footer implementation `9d9b5efb8344a0be050b18e2135c85db394cc451` was pushed. Staged root/V1/logo/CSS exact-response checks passed; deployment `dpl_Ccz6PGRrAddYBfsFYTf5VsBiwWWS` was promoted. Full live 311-resource smoke PASS at `2026-09-08T23:54:46.400Z`.
+
+Owner then requested exactly `© 2026 Danzuni by Social Dance TV`, without All Rights Reserved. Commit `af78ba2954fdca44acd262e8346eb2d24219d6f2`, pushed, changes only that text in assembled V1 (independent exact string delta assertion PASS). Four release tests rerun PASS. Corrected V1 SHA256 `c0bac2c3501d0015a79c9b5665130f07c9dda0604cacc1a6071969ca8d9f423b`; manifest beside this document now records this corrected release.
+
+Deployment `dpl_G9bmNe1oBUpJaA53aqqxcRhuhwzp`, `https://danzuni-dg16kn9bt-kirill-dancer-7625s-projects.vercel.app`, reached READY; staged root/V1 hash checks passed and exact deployment was promoted. Full live 311-resource smoke PASS at `2026-09-08T23:57:22.267Z`. Live DOM confirmed exact copyright, loaded 1802px original logo, device-isolate URL and hidden sticky banner while footer CTA is visible. Local checks: 1440×900, 390×844 and 320×640; mobile document widths 375/305 within 390/320. Live desktop screenshot shows corrected footer. Scope remains footer-only; subsequent complete-V1 release records the owner's additional request to publish the access-motion block too.
