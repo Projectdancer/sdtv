@@ -18,3 +18,15 @@ Compared full candidate HTML against owner-approved local study at `http://127.0
 The unrelated dirty historical `scripts/build-v1.mjs` must not be used to publish this release; it pins a superseded root. Use the complete-V1 builder and recorded manifests. No merge to main/master is implied by landing publication. Existing local motion/audit studies remain retained until separately reconciled.
 
 Release gate: local mobile/desktop check, push exact source, staged verification, promotion under owner GO, live all-resource smoke and visual verification. Rollback to corrected-footer deployment `dpl_G9bmNe1oBUpJaA53aqqxcRhuhwzp`. NOT RUN: physical mobile devices, full accessibility certification, actual credentials/email/payment submission, measured conversion.
+
+## Actual release acceptance
+
+Implementation `3f658664932089a9fbbdf7a74a7cd703a0e7739d` pushed to `codex/go-danzuni-20260907`. Deployment `dpl_2V71eTmjEcDYGSkeB7AMB8YQLG8H`, `https://danzuni-qpbu6iq18-kirill-dancer-7625s-projects.vercel.app`, reached READY. Before promotion, authenticated exact-response SHA checks PASS for root/V1 HTML, motion CSS/JS and arrow SVG. Previous live 311-resource check repeated PASS at `2026-09-09T00:05:01.540Z`. Exact deployment promoted successfully.
+
+`LANDING_RELEASE_DIR=D:\codex-runs\danzuni-complete-v1-20260909\release node scripts/smoke-v1.mjs`: PASS at `2026-09-09T00:06:09.309Z`, all 315 public resource hashes, both V1 URL forms, unchanged root bytes, isolated-device bytes, V1 noindex/security boundaries, private-path 404s and original Social Dance TV HTML. Hashes match the manifest above.
+
+Local and live browser checks at 1440×900 and 390×844. Desktop live confirms old panel absent, both motion states complete, unchanged exact footer copyright, and sticky banner hidden with primary CTA visible. Mobile CTA minimum height 56px; sampled document width 375 within 390. No timing/performance or conversion claim. Screenshots retained here. No navigation/login/email submission is represented by these visual checks.
+
+The footer-only intermediate release and complete-V1 release are distinct historical deployments. This complete-V1 manifest supersedes earlier staging artifacts; do not publish an earlier study or footer-only artifact expecting it to contain access motion.
+
+Final mobile live capture verifies both motion states complete, no old panel, footer `© 2026 Danzuni by Social Dance TV`, loaded isolate and hidden sticky banner at footer. Browser viewport override reset; user tab left on live V1, not localhost. Local servers 4201/4202 stopped. Cleanup of the exact validated non-reparse task directories was rejected by execution policy; no bypass attempted. Regenerable outputs retained at `D:\codex-runs\danzuni-footer-production-20260909` and `D:\codex-runs\danzuni-complete-v1-20260909`. Existing unrelated uncommitted/unpushed studies remain in `D:\codex-worktrees\sdtv-landing\go-danzuni-20260907`; do not remove the worktree. Published implementation and this acceptance record are separately pushed.
