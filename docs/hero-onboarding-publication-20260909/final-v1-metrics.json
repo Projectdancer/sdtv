@@ -1,0 +1,98 @@
+[
+  {
+    "ctaBottom": 273.7250061035156,
+    "ctaHeight": 52,
+    "gap": -272.8000183105469,
+    "heroHeight": 573.1625366210938,
+    "image": [
+      272.8000183105469,
+      243.6374969482422
+    ],
+    "overflow": false,
+    "viewport": 320
+  },
+  {
+    "ctaBottom": 288.8249969482422,
+    "ctaHeight": 52,
+    "gap": -343.20001220703125,
+    "heroHeight": 630.3375244140625,
+    "image": [
+      343.20001220703125,
+      306.51251220703125
+    ],
+    "overflow": false,
+    "viewport": 390
+  },
+  {
+    "ctaBottom": 289.9499969482422,
+    "ctaHeight": 52,
+    "gap": -556.3999786376953,
+    "heroHeight": 717.9125366210938,
+    "image": [
+      440,
+      392.9624938964844
+    ],
+    "overflow": false,
+    "viewport": 720
+  },
+  {
+    "ctaBottom": 289.9499969482422,
+    "ctaHeight": 52,
+    "gap": -557.2000274658203,
+    "heroHeight": 717.9125366210938,
+    "image": [
+      440,
+      392.9624938964844
+    ],
+    "overflow": false,
+    "viewport": 722
+  },
+  {
+    "ctaBottom": 289.9499969482422,
+    "ctaHeight": 52,
+    "gap": -596,
+    "heroHeight": 717.9125366210938,
+    "image": [
+      440,
+      392.9624938964844
+    ],
+    "overflow": false,
+    "viewport": 799
+  },
+  {
+    "ctaBottom": 334.8999938964844,
+    "ctaHeight": 56,
+    "gap": 24,
+    "heroHeight": 436.4500122070313,
+    "image": [
+      399.1125183105469,
+      356.45001220703125
+    ],
+    "overflow": false,
+    "viewport": 800
+  },
+  {
+    "ctaBottom": 341.4375,
+    "ctaHeight": 56,
+    "gap": 27.1875,
+    "heroHeight": 488.5125122070313,
+    "image": [
+      455.6375122070313,
+      406.9375
+    ],
+    "overflow": false,
+    "viewport": 906
+  },
+  {
+    "ctaBottom": 440.7000122070313,
+    "ctaHeight": 56,
+    "gap": 43.199974060058594,
+    "heroHeight": 708,
+    "image": [
+      694.8250122070312,
+      580
+    ],
+    "overflow": false,
+    "viewport": 1440
+  }
+]
